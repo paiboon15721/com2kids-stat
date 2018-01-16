@@ -21,6 +21,7 @@ const styles = theme => ({
   },
 })
 
+@withStyles(styles)
 class Layout extends React.PureComponent {
   render() {
     const { classes, children } = this.props
@@ -40,4 +41,4 @@ class Layout extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(Layout)
+export default Layout
