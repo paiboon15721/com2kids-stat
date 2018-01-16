@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, inject } from 'mobx-react'
 import { withStyles } from 'material-ui/styles'
 import Drawer from 'material-ui/Drawer'
 import NavBarChild from './NavBarChild'
@@ -9,13 +10,18 @@ const styles = theme => ({
   },
 })
 
+@inject('uiStore')
+@observer
 class NavBarForMobile extends React.Component {
   render() {
-    const { classes } = this.props
+    const { classes, uiStore } = this.props
+    const { showMobileNav, closeMobileNav } = uiStore
 
     return (
       <Drawer
         type="temporary"
+        open={showMobileNav}
+        onClose={closeMobileNav}
         classes={{ paper: classes.drawerPaper }}
         ModalProps={{
           keepMounted: true,
