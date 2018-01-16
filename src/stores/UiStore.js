@@ -7,4 +7,10 @@ export default new class UiStore {
   openMobileNav() {
     this.showMobileNav = true
   }
+
+  @action.bound
+  closeMobileNav() {
+    console.log('test')
+    this.showMobileNav = false
+  }
 }()
