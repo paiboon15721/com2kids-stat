@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from 'material-ui/styles'
 import Hidden from 'material-ui/Hidden'
 import Header from './Header'
@@ -22,6 +23,7 @@ const styles = theme => ({
 })
 
 @withStyles(styles)
+@withRouter
 class Layout extends React.PureComponent {
   render() {
     const { classes, children } = this.props
