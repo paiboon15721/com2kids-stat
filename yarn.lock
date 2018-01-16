@@ -2,6 +2,35 @@
 # yarn lockfile v1
 
 
+"@devexpress/dx-core@1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-1.0.0-beta.3.tgz#83c778992f605ba378d292af03c8ecec955be035"
+
+"@devexpress/dx-grid-core@1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-grid-core/-/dx-grid-core-1.0.0-beta.3.tgz#9cb0711b41c3ddd4bde7674eb933c1b582a55347"
+
+"@devexpress/dx-react-core@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-1.0.0-beta.3.tgz#7f2b31c0b382a4c97c25a65d95edec603dedad95"
+  dependencies:
+    "@devexpress/dx-core" "1.0.0-beta.3"
+    prop-types "^15.6.0"
+
+"@devexpress/dx-react-grid-material-ui@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-1.0.0-beta.3.tgz#cf77384c733d5d5e7190c9654135532841347aa5"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
+"@devexpress/dx-react-grid@^1.0.0-beta.3":
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid/-/dx-react-grid-1.0.0-beta.3.tgz#77e25733329b6379d64e4a444744b9487e584fb0"
+  dependencies:
+    "@devexpress/dx-grid-core" "1.0.0-beta.3"
+    prop-types "^15.6.0"
+
 "@firebase/app-types@0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.1.1.tgz#1b794e101c779310763b1bfce8c24e7728fb9a91"
