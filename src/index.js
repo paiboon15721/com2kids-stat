@@ -1,9 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import statStore from './stores/StatStore'
 import 'typeface-roboto'
 import './index.css'
+import fire from './helpers/fire'
 import registerServiceWorker from './registerServiceWorker'
+
+fire
+  .database()
+  .ref('/')
+  .on('value', s => {
+    statStore.setStat(s.val())
+  })
 
 const root = document.getElementById('root')
 
