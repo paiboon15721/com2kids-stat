@@ -1,15 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Button from 'material-ui/Button'
+import App from './App'
 import 'typeface-roboto'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 
-const App = () => (
-  <Button raised color="primary">
-    Hello World
-  </Button>
-)
+const root = document.getElementById('root')
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, root)
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default
+    ReactDOM.render(<NextApp />, root)
+  })
+}
 registerServiceWorker()
