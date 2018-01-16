@@ -16,19 +16,21 @@ class StatTable extends React.PureComponent {
   }
 
   componentDidMount() {
-    fire
-      .database()
-      .ref('/')
-      .on('value', s => {
-        this.setState({
-          data: map(s.val(), (v, k) => ({
-            name: k,
-            start: filter(v.usage, x => x.STARTDT !== undefined).length,
-            stop: filter(v.usage, x => x.STOPDT !== undefined).length,
-            total: size(v.usage),
-          })),
-        })
+    this.ref = fire.database().ref('/')
+    this.ref.on('value', s => {
+      this.setState({
+        data: map(s.val(), (v, k) => ({
+          name: k,
+          start: filter(v.usage, x => x.STARTDT !== undefined).length,
+          stop: filter(v.usage, x => x.STOPDT !== undefined).length,
+          total: size(v.usage),
+        })),
       })
+    })
+  }
+
+  componentWillUnmount() {
+    this.ref.off()
   }
 
   render() {
