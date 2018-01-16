@@ -1,9 +1,14 @@
 import React from 'react'
+import Layout from './components/Layout'
 import StatTable from './components/StatTable'
 
 class App extends React.PureComponent {
   render() {
-    return <StatTable />
+    return (
+      <Layout>
+        <StatTable />
+      </Layout>
+    )
   }
 }
 
