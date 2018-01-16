@@ -1,13 +1,19 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import StatTable from './StatTable'
+import StatChart from './StatChart'
 
 class Main extends React.PureComponent {
   render() {
     return (
-      <Paper>
-        <StatTable />
-      </Paper>
+      <div>
+        <Paper style={{ marginBottom: 20 }}>
+          <StatChart />
+        </Paper>
+        <Paper>
+          <StatTable />
+        </Paper>
+      </div>
     )
   }
 }
