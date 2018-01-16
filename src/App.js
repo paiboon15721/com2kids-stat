@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Layout from './components/Layout'
 import Main from './pages/Main'
 import UiStore from './stores/UiStore'
+import StatStore from './stores/StatStore'
 
 class App extends React.PureComponent {
   render() {
     return (
-      <Provider uiStore={UiStore}>
+      <Provider uiStore={UiStore} statStore={StatStore}>
         <Router>
           <Layout>
             <Switch>
