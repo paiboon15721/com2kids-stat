@@ -8,7 +8,7 @@ import map from 'lodash/map'
 import filter from 'lodash/filter'
 import size from 'lodash/size'
 
-import fire from '../helpers/fire'
+import fire from '../../helpers/fire'
 
 class StatTable extends React.PureComponent {
   state = {

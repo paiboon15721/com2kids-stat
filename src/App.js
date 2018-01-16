@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from './components/Layout'
-import StatTable from './components/StatTable'
+import Main from './pages/Main'
 
 class App extends React.PureComponent {
   render() {
     return (
       <Layout>
-        <StatTable />
+        <Main />
       </Layout>
     )
   }
