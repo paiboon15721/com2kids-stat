@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
+import MenuButton from './MenuButton'
 import Title from './Title'
 
 const drawerWidth = 240
@@ -20,6 +21,7 @@ class Header extends React.Component {
     return (
       <AppBar className={classes.appBar}>
         <Toolbar>
+          <MenuButton />
           <Title />
         </Toolbar>
       </AppBar>
