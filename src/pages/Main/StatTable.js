@@ -4,39 +4,24 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui'
+import { observer, inject } from 'mobx-react'
 import map from 'lodash/map'
 import filter from 'lodash/filter'
 import size from 'lodash/size'
 
-import fire from '../../helpers/fire'
-
-class StatTable extends React.PureComponent {
-  state = {
-    data: [],
-  }
-
-  componentDidMount() {
-    this.ref = fire.database().ref('/')
-    this.ref.on('value', s => {
-      this.setState({
-        data: map(s.val(), (v, k) => ({
+@inject('statStore')
+@observer
+class StatTable extends React.Component {
+  render() {
+    const { stat } = this.props.statStore
+    return (
+      <Grid
+        rows={map(stat, (v, k) => ({
           name: k,
           start: filter(v.usage, x => x.STARTDT !== undefined).length,
           stop: filter(v.usage, x => x.STOPDT !== undefined).length,
           total: size(v.usage),
-        })),
-      })
-    })
-  }
-
-  componentWillUnmount() {
-    this.ref.off()
-  }
-
-  render() {
-    return (
-      <Grid
-        rows={this.state.data}
+        }))}
         columns={[
           { name: 'name', title: 'School name' },
           { name: 'start', title: 'Start' },
