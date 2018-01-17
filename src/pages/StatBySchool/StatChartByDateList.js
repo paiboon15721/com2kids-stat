@@ -1,5 +1,6 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import Paper from 'material-ui/Paper'
 import range from 'lodash/range'
@@ -7,18 +8,20 @@ import filter from 'lodash/filter'
 import map from 'lodash/map'
 import StatChartByDate from './StatChartByDate'
 
+@withRouter
 @inject('statStore')
 @observer
 class StatChartByDateList extends React.Component {
   render() {
-    const { stat } = this.props.statStore
-    const statByDate = map(range(10), n => {
+    const { statStore, match } = this.props
+    const back = match.params.back || 10
+    const statByDate = map(range(back), n => {
       const date = moment()
         .startOf('days')
         .subtract(n, 'days')
       return {
         date: date.format('DD/MM/YYYY'),
-        data: map(stat, (v, k) => {
+        data: map(statStore.stat, (v, k) => {
           return {
             schoolName: k,
             start: filter(
