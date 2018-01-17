@@ -20,7 +20,7 @@ class StatChartByDateList extends React.Component {
         .startOf('days')
         .subtract(n, 'days')
       return {
-        date: date.format('DD/MM/YYYY'),
+        date: date.format('ddd DD/MM/YYYY'),
         data: map(statStore.stat, (v, k) => {
           return {
             schoolName: k,
