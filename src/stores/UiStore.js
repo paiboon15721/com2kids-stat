@@ -17,5 +17,6 @@ export default new class UiStore {
   @action.bound
   changePath(path) {
     this.currentPath = path
+    this.closeMobileNav()
   }
 }()
