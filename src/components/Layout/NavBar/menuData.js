@@ -1,5 +1,5 @@
 export default [
-  { primary: 'Total Stat', path: '/total', title: 'Total Stat' },
+  { primary: 'Total Stat', path: '/total-stat', title: 'Total Stat' },
   {
     primary: 'Stat by date',
     path: '/stat-by-date',

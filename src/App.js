@@ -20,8 +20,8 @@ class App extends React.PureComponent {
         <Router>
           <Layout>
             <Switch>
-              <Route exact path="/" component={() => <Redirect to="/main" />} />
-              <Route path="/main" component={TotalStat} />
+              <Route exact path="/" component={() => <Redirect to="/total-stat" />} />
+              <Route path="/total-stat" component={TotalStat} />
               <Route path="/stat-by-date/:back?" component={StatByDate} />
             </Switch>
             {process.env.NODE_ENV === 'development' ? <DevTools /> : null}
