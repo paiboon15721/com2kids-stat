@@ -8,8 +8,8 @@ import {
   Redirect,
 } from 'react-router-dom'
 import Layout from './components/Layout'
-import Main from './pages/Main'
-import StatBySchool from './pages/StatBySchool'
+import TotalStat from './pages/TotalStat'
+import StatByDate from './pages/StatByDate'
 import UiStore from './stores/UiStore'
 import StatStore from './stores/StatStore'
 
@@ -21,8 +21,8 @@ class App extends React.PureComponent {
           <Layout>
             <Switch>
               <Route exact path="/" component={() => <Redirect to="/main" />} />
-              <Route path="/main" component={Main} />
-              <Route path="/stat-by-school/:back?" component={StatBySchool} />
+              <Route path="/main" component={TotalStat} />
+              <Route path="/stat-by-date/:back?" component={StatByDate} />
             </Switch>
             {process.env.NODE_ENV === 'development' ? <DevTools /> : null}
           </Layout>

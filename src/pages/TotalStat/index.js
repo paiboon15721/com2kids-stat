@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper'
 import StatTable from './StatTable'
 import StatChart from './StatChart'
 
-class Main extends React.PureComponent {
+class TotalStat extends React.PureComponent {
   render() {
     return (
       <div>
@@ -18,4 +18,4 @@ class Main extends React.PureComponent {
   }
 }
 
-export default Main
+export default TotalStat

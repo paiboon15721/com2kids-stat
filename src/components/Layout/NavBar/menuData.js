@@ -1,8 +1,8 @@
 export default [
-  { primary: 'Main', path: '/main', title: 'Main Page' },
+  { primary: 'Total Stat', path: '/total', title: 'Total Stat' },
   {
-    primary: 'Stat by school',
-    path: '/stat-by-school',
-    title: 'Stat by school',
+    primary: 'Stat by date',
+    path: '/stat-by-date',
+    title: 'Stat by date',
   },
 ]

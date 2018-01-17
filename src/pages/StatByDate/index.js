@@ -1,10 +1,10 @@
 import React from 'react'
 import StatChartByDateList from './StatChartByDateList'
 
-class StatBySchool extends React.PureComponent {
+class StatByDate extends React.PureComponent {
   render() {
     return <StatChartByDateList />
   }
 }
 
-export default StatBySchool
+export default StatByDate
