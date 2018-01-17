@@ -10,7 +10,7 @@ class Title extends React.Component {
         style={{ flexGrow: 1, marginLeft: 10 }}
         noWrap
       >
-        Title
+        COM2KIDS Dashboard
       </Typography>
     )
   }
