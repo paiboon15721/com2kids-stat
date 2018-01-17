@@ -53,7 +53,10 @@ class StatChartByDateList extends React.Component {
       }
     })
     return map(statByDate, x => (
-      <Paper style={{ padding: 10, marginBottom: 10 }} key={x.date}>
+      <Paper
+        style={{ padding: 10, marginBottom: 10, height: 400 }}
+        key={x.date}
+      >
         <h3>Date: {x.date}</h3>
         <StatChartByDate data={x.data} />
       </Paper>

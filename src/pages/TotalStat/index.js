@@ -7,7 +7,8 @@ class TotalStat extends React.PureComponent {
   render() {
     return (
       <div>
-        <Paper style={{ marginBottom: 20 }}>
+        <Paper style={{ marginBottom: 20, padding: 20, height: 400 }}>
+          <h3>Total Usage</h3>
           <StatChart />
         </Paper>
         <Paper>
