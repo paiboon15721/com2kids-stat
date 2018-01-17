@@ -10,7 +10,13 @@ import { inject, observer } from 'mobx-react'
 class MenuItem extends React.Component {
   render() {
     const { primary, path, history, uiStore } = this.props
-    const active = path === history.location.pathname
+    const active =
+      path ===
+      `/${history.location.pathname
+        .slice(1)
+        .split('/')
+        .slice(0, 1)
+        .join('/')}`
     return (
       <ListItem
         button
