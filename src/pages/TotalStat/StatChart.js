@@ -34,8 +34,8 @@ class StatChart extends React.Component {
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="start" stackId="a" fill="#8884d8" />
-          <Bar dataKey="stop" stackId="a" fill="#82ca9d" />
+          <Bar dataKey="start" stackId="a" fill="#4CAF50" />
+          <Bar dataKey="stop" stackId="a" fill="#F44336" />
         </BarChart>
       </ResponsiveContainer>
     )
