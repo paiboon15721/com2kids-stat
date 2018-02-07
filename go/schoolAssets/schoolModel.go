@@ -55,6 +55,8 @@ func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 		comLessMatch := bson.M{"$match": bson.M{"assets.COMP_TOTAL.ใช้งานได้": bson.M{"$lt": comLess}}}
 		pipeline = append(pipeline, comLessMatch)
 	}
+	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
+	pipeline = append(pipeline, sort)
 	limit := bson.M{"$limit": 100}
 	pipeline = append(pipeline, limit)
 	ss := []schoolWithAssets{}
