@@ -3,6 +3,7 @@ package schoolAssets
 import (
 	"com2kids/go/config"
 	"net/url"
+	"strconv"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -10,6 +11,7 @@ import (
 type school struct {
 	ID             int    `bson:"SCHOOL_ID" json:"id"`
 	Name           string `bson:"โรงเรียน" json:"name"`
+	EnglishName    string `bson:"ภาษาอังกฤษ" json:"englishName"`
 	Address        string `bson:"หมู่บ้าน" json:"address"`
 	Tambon         string `bson:"ตำบล" json:"tambon"`
 	Amphoe         string `bson:"อำเภอ" json:"amphoe"`
@@ -24,7 +26,7 @@ type school struct {
 
 type schoolWithAssets struct {
 	school `bson:",inline"`
-	Assets []assets `json:"asset,omitempty"`
+	Assets assets `json:"assets,omitempty"`
 }
 
 var lookupAssets = bson.M{
@@ -37,11 +39,21 @@ var lookupAssets = bson.M{
 }
 
 func allSchools(qs url.Values) ([]schoolWithAssets, error) {
+	var pipeline []bson.M
 	name := qs.Get("name")
-	ss := []schoolWithAssets{}
-	match := bson.M{"$match": bson.M{"โรงเรียน": bson.RegEx{Pattern: name, Options: ""}}}
+	if name != "" {
+		nameMatch := bson.M{"$match": bson.M{"โรงเรียน": bson.RegEx{Pattern: name, Options: ""}}}
+		pipeline = append(pipeline, nameMatch)
+	}
+	pipeline = append(pipeline, lookupAssets, bson.M{"$unwind": "$assets"})
+	if comLess, err := strconv.Atoi(qs.Get("comLess")); err == nil {
+		comLessMatch := bson.M{"$match": bson.M{"assets.COMP_TOTAL.ใช้งานได้": bson.M{"$lt": comLess}}}
+		pipeline = append(pipeline, comLessMatch)
+	}
 	limit := bson.M{"$limit": 10}
-	err := config.School.Pipe([]bson.M{match, lookupAssets, limit}).All(&ss)
+	pipeline = append(pipeline, limit)
+	ss := []schoolWithAssets{}
+	err := config.School.Pipe(pipeline).All(&ss)
 	if err != nil {
 		return ss, err
 	}
