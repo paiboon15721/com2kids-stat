@@ -44,6 +44,11 @@ func init() {
 		panic(err)
 	}
 	fmt.Println("ensured schools.SCHOOL_ID index")
+	err = School.EnsureIndexKey("จังหวัด")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured schools.จังหวัด index")
 	err = School.EnsureIndexKey("โรงเรียน")
 	if err != nil {
 		panic(err)
