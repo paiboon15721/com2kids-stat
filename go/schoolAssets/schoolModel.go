@@ -8,23 +8,23 @@ import (
 )
 
 type school struct {
-	ID             int    `bson:"SCHOOL_ID"`
-	Name           string `bson:"โรงเรียน"`
-	Address        string `bson:"หมู่บ้าน"`
-	Tambon         string `bson:"ตำบล"`
-	Amphoe         string `bson:"อำเภอ"`
-	Province       string `bson:"จังหวัด"`
-	Type           string `bson:"ประเภทการศึกษา"`
-	Size           string `bson:"ขนาดสถานศึกษา"`
-	TotalStudent   int    `bson:"นักเรียน"`
-	TotalClassroom int    `bson:"ห้องเรียน"`
-	TotalTeacher   int    `bson:"ครู/บุคลากร"`
-	Electricity    string `bson:"ไฟฟ้า"`
+	ID             int    `bson:"SCHOOL_ID" json:"id"`
+	Name           string `bson:"โรงเรียน" json:"name"`
+	Address        string `bson:"หมู่บ้าน" json:"address"`
+	Tambon         string `bson:"ตำบล" json:"tambon"`
+	Amphoe         string `bson:"อำเภอ" json:"amphoe"`
+	Province       string `bson:"จังหวัด" json:"province"`
+	Type           string `bson:"ประเภทการศึกษา" json:"type"`
+	Size           string `bson:"ขนาดสถานศึกษา" json:"size"`
+	TotalStudent   int    `bson:"นักเรียน" json:"totalStudent"`
+	TotalClassroom int    `bson:"ห้องเรียน" json:"totalClassroom"`
+	TotalTeacher   int    `bson:"ครู/บุคลากร" json:"totalTeacher"`
+	Electricity    string `bson:"ไฟฟ้า" json:"electricity"`
 }
 
 type schoolWithAssets struct {
 	school `bson:",inline"`
-	Assets []assets
+	Assets []assets `json:",omitempty"`
 }
 
 var lookupAssets = bson.M{
@@ -39,7 +39,7 @@ var lookupAssets = bson.M{
 func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 	name := qs.Get("name")
 	ss := []schoolWithAssets{}
-	match := bson.M{"$match": bson.M{"โรงเรียน": bson.RegEx{name, ""}}}
+	match := bson.M{"$match": bson.M{"โรงเรียน": bson.RegEx{Pattern: name, Options: ""}}}
 	limit := bson.M{"$limit": 10}
 	err := config.School.Pipe([]bson.M{match, lookupAssets, limit}).All(&ss)
 	if err != nil {
