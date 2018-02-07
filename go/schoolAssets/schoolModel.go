@@ -41,6 +41,11 @@ var lookupAssets = bson.M{
 func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 	var pipeline []bson.M
 	name := qs.Get("name")
+	province := qs.Get("province")
+	if province != "" {
+		provinceMatch := bson.M{"$match": bson.M{"จังหวัด": bson.RegEx{Pattern: province, Options: ""}}}
+		pipeline = append(pipeline, provinceMatch)
+	}
 	if name != "" {
 		nameMatch := bson.M{"$match": bson.M{"โรงเรียน": bson.RegEx{Pattern: name, Options: ""}}}
 		pipeline = append(pipeline, nameMatch)
