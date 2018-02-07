@@ -34,5 +34,40 @@ func init() {
 	fmt.Println("connected to mongodb")
 	DB = s.DB("com2kids")
 	School = DB.C("schools")
+	err = School.EnsureIndex(
+		mgo.Index{
+			Key:    []string{"SCHOOL_ID"},
+			Unique: true,
+		},
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured schools.SCHOOL_ID index")
+	err = School.EnsureIndexKey("โรงเรียน")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured schools.โรงเรียน index")
+	err = School.EnsureIndexKey("ภาษาอังกฤษ")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured schools.ภาษาอังกฤษ index")
 	Assets = DB.C("assets")
+	err = Assets.EnsureIndex(
+		mgo.Index{
+			Key:    []string{"SCHOOL_ID"},
+			Unique: true,
+		},
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured assets.SCHOOL_ID index")
+	err = Assets.EnsureIndexKey("COMP_TOTAL.ใช้งานได้")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("ensured assets.COMP_TOTAL.ใช้งานได้ index")
 }
