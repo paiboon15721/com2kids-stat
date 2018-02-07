@@ -24,7 +24,7 @@ type school struct {
 
 type schoolWithAssets struct {
 	school `bson:",inline"`
-	Assets []assets `json:",omitempty"`
+	Assets []assets `json:"asset,omitempty"`
 }
 
 var lookupAssets = bson.M{
