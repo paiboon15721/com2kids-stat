@@ -5,4 +5,9 @@ export default [
     path: '/stat-by-date',
     title: 'Stat by date',
   },
+  {
+    primary: 'Search Schools',
+    path: '/search-schools',
+    title: 'Search Schools',
+  },
 ]
