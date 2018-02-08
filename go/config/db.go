@@ -75,4 +75,5 @@ func init() {
 		panic(err)
 	}
 	fmt.Println("ensured assets.COMP_TOTAL.ใช้งานได้ index")
+	fmt.Println("everything ready to go :)")
 }
