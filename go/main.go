@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -14,5 +15,5 @@ func main() {
 	router.GET("/school-sizes", schoolAssets.SchoolGetSizeList)
 	router.GET("/school-provinces", schoolAssets.SchoolGetProvinceList)
 	router.GET("/assets", schoolAssets.AssetsIndex)
-	http.ListenAndServe(":3001", router)
+	http.ListenAndServe(":3001", cors.Default().Handler(router))
 }
