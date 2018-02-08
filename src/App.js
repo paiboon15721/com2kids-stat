@@ -10,6 +10,7 @@ import {
 import Layout from './components/Layout'
 import TotalStat from './pages/TotalStat'
 import StatByDate from './pages/StatByDate'
+import SearchSchools from './pages/SearchSchools'
 import UiStore from './stores/UiStore'
 import StatStore from './stores/StatStore'
 
@@ -20,9 +21,14 @@ class App extends React.PureComponent {
         <Router>
           <Layout>
             <Switch>
-              <Route exact path="/" component={() => <Redirect to="/total-stat" />} />
+              <Route
+                exact
+                path="/"
+                component={() => <Redirect to="/total-stat" />}
+              />
               <Route path="/total-stat" component={TotalStat} />
               <Route path="/stat-by-date/:back?" component={StatByDate} />
+              <Route path="/search-schools" component={SearchSchools} />
             </Switch>
             {process.env.NODE_ENV === 'development' ? <DevTools /> : null}
           </Layout>
