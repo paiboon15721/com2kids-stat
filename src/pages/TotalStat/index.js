@@ -40,7 +40,7 @@ class TotalStat extends React.PureComponent {
     return (
       <div className={classes.root}>
         <Paper className={classes.statChart}>
-          <h3>Total Usage</h3>
+          <h3>ไม่ได้ใช้งานมาแล้วกี่วัน</h3>
           <NotUseStatChart />
         </Paper>
         <Paper className={classes.statChart}>
