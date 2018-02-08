@@ -14,6 +14,12 @@
   version = "v1.1"
 
 [[projects]]
+  name = "github.com/rs/cors"
+  packages = ["."]
+  revision = "7af7a1e09ba336d2ea14b1ce73bf693c6837dbf6"
+  version = "v1.2"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
@@ -34,6 +40,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0c8d9dd2b6fd8238ce176b40f3357b2a45bb8f977cdb1a3bc1a19850e17cc57a"
+  inputs-digest = "f1eee17561847871311c208d3018b9379a45a3bd3b02f7806f5a9ffe6b02e4c7"
   solver-name = "gps-cdcl"
   solver-version = 1
