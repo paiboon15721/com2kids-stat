@@ -39,6 +39,14 @@ var lookupAssets = bson.M{
 }
 
 func allSchools(qs url.Values) ([]schoolWithAssets, error) {
+	skip := bson.M{"$skip": 0}
+	if qSkip, err := strconv.Atoi(qs.Get("skip")); err == nil {
+		skip["$skip"] = qSkip
+	}
+	limit := bson.M{"$limit": 10}
+	if qLimit, err := strconv.Atoi(qs.Get("limit")); err == nil {
+		limit["$limit"] = qLimit
+	}
 	var pipeline []bson.M
 	province := qs.Get("province")
 	if province != "" {
@@ -56,9 +64,7 @@ func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 		pipeline = append(pipeline, comLessMatch)
 	}
 	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
-	pipeline = append(pipeline, sort)
-	limit := bson.M{"$limit": 100}
-	pipeline = append(pipeline, limit)
+	pipeline = append(pipeline, sort, skip, limit)
 	ss := []schoolWithAssets{}
 	err := config.School.Pipe(pipeline).All(&ss)
 	if err != nil {
