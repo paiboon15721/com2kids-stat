@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   Legend,
+  LabelList,
 } from 'recharts'
 
 class FilterDate extends React.Component {
@@ -25,7 +26,9 @@ class FilterDate extends React.Component {
           <Tooltip />
           <Legend />
           <Bar dataKey="start" stackId="a" fill="#4CAF50" />
-          <Bar dataKey="stop" stackId="a" fill="#F44336" />
+          <Bar dataKey="stop" stackId="a" fill="#F44336">
+            <LabelList dataKey="schoolName" position="top" angle="45" />
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     )
