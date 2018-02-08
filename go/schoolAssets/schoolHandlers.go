@@ -37,3 +37,12 @@ func SchoolGetSizeList(w http.ResponseWriter, req *http.Request, _ httprouter.Pa
 	}
 	json.NewEncoder(w).Encode(ss)
 }
+
+// GetProvinceList : /school-provinces
+func SchoolGetProvinceList(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
+	ps, err := provinceList()
+	if err != nil {
+		panic(err)
+	}
+	json.NewEncoder(w).Encode(ps)
+}

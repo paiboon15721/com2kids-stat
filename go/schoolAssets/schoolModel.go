@@ -91,3 +91,12 @@ func sizeList() ([]string, error) {
 	}
 	return ss, nil
 }
+
+func provinceList() ([]string, error) {
+	ps := []string{}
+	err := config.School.Find(nil).Distinct("จังหวัด", &ps)
+	if err != nil {
+		return ps, err
+	}
+	return ps, nil
+}
