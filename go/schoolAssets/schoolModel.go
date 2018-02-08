@@ -66,7 +66,7 @@ func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
 	pipeline = append(pipeline, sort, skip, limit)
 	ss := []schoolWithAssets{}
-	err := config.School.Pipe(pipeline).All(&ss)
+	err := config.School.Pipe(pipeline).AllowDiskUse().All(&ss)
 	if err != nil {
 		return ss, err
 	}
