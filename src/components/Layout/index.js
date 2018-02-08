@@ -34,7 +34,7 @@ class Layout extends React.PureComponent {
         <Hidden mdUp key="1">
           <NavBarForMobile />
         </Hidden>
-        <Hidden mdDown implementation="css" key="2">
+        <Hidden smDown implementation="css" key="2">
           <NavBarForWeb />
         </Hidden>
         <main className={classes.content}>{children}</main>
