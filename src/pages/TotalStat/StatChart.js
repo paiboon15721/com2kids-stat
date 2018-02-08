@@ -37,7 +37,7 @@ class StatChart extends React.Component {
           <Legend />
           <Bar dataKey="start" stackId="a" fill="#4CAF50" />
           <Bar dataKey="stop" stackId="a" fill="#F44336">
-            <LabelList dataKey="name" position="top" angle="45" />
+            <LabelList dataKey="name" position="top" angle={45} />
           </Bar>
         </BarChart>
       </ResponsiveContainer>
