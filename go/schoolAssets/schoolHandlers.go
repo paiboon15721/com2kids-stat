@@ -8,17 +8,18 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-// Index : /
+// SchoolIndex : /
 func SchoolIndex(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	qs := req.URL.Query()
 	ss, err := allSchools(qs)
 	if err != nil {
 		panic(err)
 	}
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(ss)
 }
 
-// Show : /:schoolID
+// SchoolShow : /:schoolID
 func SchoolShow(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
 	schoolID, _ := strconv.Atoi(ps.ByName("schoolID"))
 	s, err := oneSchool(schoolID)
@@ -29,7 +30,7 @@ func SchoolShow(w http.ResponseWriter, req *http.Request, ps httprouter.Params) 
 	json.NewEncoder(w).Encode(s)
 }
 
-// GetSizeList : /school-sizes
+// SchoolGetSizeList : /school-sizes
 func SchoolGetSizeList(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	ss, err := sizeList()
 	if err != nil {
@@ -38,7 +39,7 @@ func SchoolGetSizeList(w http.ResponseWriter, req *http.Request, _ httprouter.Pa
 	json.NewEncoder(w).Encode(ss)
 }
 
-// GetProvinceList : /school-provinces
+// SchoolGetProvinceList : /school-provinces
 func SchoolGetProvinceList(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	ps, err := provinceList()
 	if err != nil {
