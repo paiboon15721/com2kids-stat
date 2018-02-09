@@ -21,7 +21,6 @@ const styles = theme => ({
     width: '49%',
     [theme.breakpoints.down('md')]: {
       width: '100%',
-      marginRight: 0,
       marginBottom: 20,
     },
   },
