@@ -71,21 +71,40 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 		pipeline = append(pipeline, comLessMatch)
 	}
 
-	// Get total
-	pipelineForTotal := append(pipeline, bson.M{"$count": "total"})
+	// Initial var
 	total := total{}
 	ss := []schoolWithAssets{}
-	err := config.School.Pipe(pipelineForTotal).One(&total)
-	if err != nil {
-		return ss, 0, err
-	}
+	c := make(chan error)
+	done := make(chan bool)
+
+	// Get total
+	go func() {
+		if skip["$skip"] == 0 {
+			pipelineForTotal := append(pipeline, bson.M{"$count": "total"})
+			c <- config.School.Pipe(pipelineForTotal).One(&total)
+		}
+		done <- true
+	}()
 
 	// Get data with skip and limit
-	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
-	pipelineForData := append(pipeline, sort, skip, limit)
-	err = config.School.Pipe(pipelineForData).AllowDiskUse().All(&ss)
-	if err != nil {
-		return ss, 0, err
+	go func() {
+		sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
+		pipelineForData := append(pipeline, sort, skip, limit)
+		c <- config.School.Pipe(pipelineForData).AllowDiskUse().All(&ss)
+		done <- true
+	}()
+
+	// Close chan when done
+	go func() {
+		<-done
+		<-done
+		close(c)
+	}()
+
+	for err := range c {
+		if err != nil {
+			return ss, 0, err
+		}
 	}
 	return ss, total.Total, nil
 }
