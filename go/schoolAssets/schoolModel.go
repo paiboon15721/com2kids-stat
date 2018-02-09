@@ -43,6 +43,7 @@ var lookupAssets = bson.M{
 }
 
 func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
+	// Get skip and limit
 	skip := bson.M{"$skip": 0}
 	if qSkip, err := strconv.Atoi(qs.Get("skip")); err == nil {
 		skip["$skip"] = qSkip
@@ -51,6 +52,8 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 	if qLimit, err := strconv.Atoi(qs.Get("limit")); err == nil {
 		limit["$limit"] = qLimit
 	}
+
+	// Build query pipeline
 	var pipeline []bson.M
 	province := qs.Get("province")
 	if province != "" {
@@ -67,6 +70,8 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 		comLessMatch := bson.M{"$match": bson.M{"assets.COMP_TOTAL.ใช้งานได้": bson.M{"$lt": comLess}}}
 		pipeline = append(pipeline, comLessMatch)
 	}
+
+	// Get total
 	pipeline = append(pipeline, bson.M{"$count": "total"})
 	total := total{}
 	ss := []schoolWithAssets{}
@@ -74,6 +79,8 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 	if err != nil {
 		return ss, 0, err
 	}
+
+	// Get data with skip and limit
 	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
 	pipeline = append(pipeline[:len(pipeline)-1], sort, skip, limit)
 	err = config.School.Pipe(pipeline).AllowDiskUse().All(&ss)
