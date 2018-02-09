@@ -79,7 +79,7 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 
 	// Get total
 	go func() {
-		if skip["$skip"] == 0 {
+		if qs.Get("count") == "1" {
 			pipelineForTotal := append(pipeline, bson.M{"$count": "total"})
 			c <- config.School.Pipe(pipelineForTotal).One(&total)
 		}
