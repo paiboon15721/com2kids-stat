@@ -15,5 +15,8 @@ func main() {
 	router.GET("/school-sizes", schoolAssets.SchoolGetSizeList)
 	router.GET("/school-provinces", schoolAssets.SchoolGetProvinceList)
 	router.GET("/assets", schoolAssets.AssetsIndex)
-	http.ListenAndServe(":3001", cors.Default().Handler(router))
+	c := cors.New(cors.Options{
+		ExposedHeaders: []string{"X-Total-Count"},
+	})
+	http.ListenAndServe(":3001", c.Handler(router))
 }
