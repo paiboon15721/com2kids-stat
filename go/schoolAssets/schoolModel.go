@@ -72,18 +72,18 @@ func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 	}
 
 	// Get total
-	pipeline = append(pipeline, bson.M{"$count": "total"})
+	pipelineForTotal := append(pipeline, bson.M{"$count": "total"})
 	total := total{}
 	ss := []schoolWithAssets{}
-	err := config.School.Pipe(pipeline).One(&total)
+	err := config.School.Pipe(pipelineForTotal).One(&total)
 	if err != nil {
 		return ss, 0, err
 	}
 
 	// Get data with skip and limit
 	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
-	pipeline = append(pipeline[:len(pipeline)-1], sort, skip, limit)
-	err = config.School.Pipe(pipeline).AllowDiskUse().All(&ss)
+	pipelineForData := append(pipeline, sort, skip, limit)
+	err = config.School.Pipe(pipelineForData).AllowDiskUse().All(&ss)
 	if err != nil {
 		return ss, 0, err
 	}
