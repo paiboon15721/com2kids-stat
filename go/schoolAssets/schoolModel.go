@@ -29,6 +29,10 @@ type schoolWithAssets struct {
 	Assets assets `json:"assets,omitempty"`
 }
 
+type total struct {
+	Total int `bson:"total"`
+}
+
 var lookupAssets = bson.M{
 	"$lookup": bson.M{
 		"from":         "assets",
@@ -38,7 +42,7 @@ var lookupAssets = bson.M{
 	},
 }
 
-func allSchools(qs url.Values) ([]schoolWithAssets, error) {
+func allSchools(qs url.Values) ([]schoolWithAssets, int, error) {
 	skip := bson.M{"$skip": 0}
 	if qSkip, err := strconv.Atoi(qs.Get("skip")); err == nil {
 		skip["$skip"] = qSkip
@@ -63,14 +67,20 @@ func allSchools(qs url.Values) ([]schoolWithAssets, error) {
 		comLessMatch := bson.M{"$match": bson.M{"assets.COMP_TOTAL.ใช้งานได้": bson.M{"$lt": comLess}}}
 		pipeline = append(pipeline, comLessMatch)
 	}
-	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
-	pipeline = append(pipeline, sort, skip, limit)
+	pipeline = append(pipeline, bson.M{"$count": "total"})
+	total := total{}
 	ss := []schoolWithAssets{}
-	err := config.School.Pipe(pipeline).AllowDiskUse().All(&ss)
+	err := config.School.Pipe(pipeline).One(&total)
 	if err != nil {
-		return ss, err
+		return ss, 0, err
 	}
-	return ss, nil
+	sort := bson.M{"$sort": bson.M{"assets.COMP_TOTAL.ใช้งานได้": 1}}
+	pipeline = append(pipeline[:len(pipeline)-1], sort, skip, limit)
+	err = config.School.Pipe(pipeline).AllowDiskUse().All(&ss)
+	if err != nil {
+		return ss, 0, err
+	}
+	return ss, total.Total, nil
 }
 
 func oneSchool(schoolID int) (schoolWithAssets, error) {
