@@ -31,7 +31,7 @@ class SchoolsTable extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.loadData()
+    this.loadData(1)
   }
 
   componentDidUpdate() {
@@ -50,7 +50,7 @@ class SchoolsTable extends React.PureComponent {
     return `${URL}?limit=${pageSize}&skip=${pageSize * currentPage}`
   }
 
-  loadData = async () => {
+  loadData = async (count = 0) => {
     const queryString = this.queryString()
     if (queryString === this.lastQuery) {
       this.setState({ loading: false })
@@ -58,7 +58,7 @@ class SchoolsTable extends React.PureComponent {
     }
     this.lastQuery = queryString
     try {
-      const { data, headers } = await axios.get(queryString)
+      const { data, headers } = await axios.get(`${queryString}&count=${count}`)
       if (this.state.totalCount === 0) {
         this.setState({
           rows: data,
