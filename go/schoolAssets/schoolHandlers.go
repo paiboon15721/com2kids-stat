@@ -11,11 +11,12 @@ import (
 // SchoolIndex : /
 func SchoolIndex(w http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	qs := req.URL.Query()
-	ss, err := allSchools(qs)
+	ss, total, err := allSchools(qs)
 	if err != nil {
 		panic(err)
 	}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("X-Total-Count", strconv.Itoa(total))
 	json.NewEncoder(w).Encode(ss)
 }
 
