@@ -9,6 +9,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui'
 import axios from 'axios'
 import toInteger from 'lodash/toInteger'
+import map from 'lodash/map'
 import Loading from './Loading'
 
 const URL = 'http://localhost:5000/schools'
@@ -22,6 +23,7 @@ class SchoolsTable extends React.PureComponent {
       { name: 'size', title: 'Size' },
       { name: 'totalStudent', title: 'Total Student' },
       { name: 'totalTeacher', title: 'Total Teacher' },
+      { name: 'usable', title: 'Usable' },
     ],
     rows: [],
     totalCount: 0,
@@ -59,15 +61,24 @@ class SchoolsTable extends React.PureComponent {
     this.lastQuery = queryString
     try {
       const { data, headers } = await axios.get(`${queryString}&count=${count}`)
+      const rows = map(data, v => ({
+        name: v.name,
+        province: v.province,
+        type: v.type,
+        size: v.size,
+        totalStudent: v.totalStudent,
+        totalTeacher: v.totalTeacher,
+        usable: v.assets.computerTotal.usable,
+      }))
       if (this.state.totalCount === 0) {
         this.setState({
-          rows: data,
+          rows,
           totalCount: toInteger(headers['x-total-count']),
           loading: false,
         })
       } else {
         this.setState({
-          rows: data,
+          rows,
           loading: false,
         })
       }
