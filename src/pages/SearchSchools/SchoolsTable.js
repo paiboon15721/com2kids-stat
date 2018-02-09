@@ -7,67 +7,73 @@ import {
   TableHeaderRow,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
+import axios from 'axios'
+import toInteger from 'lodash/toInteger'
 import Loading from './Loading'
 
-const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems'
+const URL = 'http://localhost:5000/schools'
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      columns: [
-        { name: 'OrderNumber', title: 'Order Number' },
-        { name: 'OrderDate', title: 'Order Date' },
-        { name: 'StoreCity', title: 'Store City' },
-        { name: 'StoreState', title: 'Store State' },
-        { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount' },
-      ],
-      rows: [],
-      totalCount: 0,
-      pageSize: 6,
-      currentPage: 0,
-      loading: true,
-    }
-
-    this.changeCurrentPage = this.changeCurrentPage.bind(this)
+class SchoolsTable extends React.PureComponent {
+  state = {
+    columns: [
+      { name: 'name', title: 'Name' },
+      { name: 'province', title: 'Province' },
+      { name: 'type', title: 'Type' },
+      { name: 'size', title: 'Size' },
+      { name: 'totalStudent', title: 'Total Student' },
+      { name: 'totalTeacher', title: 'Total Teacher' },
+    ],
+    rows: [],
+    totalCount: 0,
+    pageSize: 10,
+    currentPage: 0,
+    loading: true,
   }
+
   componentDidMount() {
     this.loadData()
   }
+
   componentDidUpdate() {
     this.loadData()
   }
-  changeCurrentPage(currentPage) {
+
+  changeCurrentPage = currentPage => {
     this.setState({
       loading: true,
       currentPage,
     })
   }
+
   queryString() {
     const { pageSize, currentPage } = this.state
-
-    return `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`
+    return `${URL}?limit=${pageSize}&skip=${pageSize * currentPage}`
   }
-  loadData() {
+
+  loadData = async () => {
     const queryString = this.queryString()
     if (queryString === this.lastQuery) {
       this.setState({ loading: false })
       return
     }
-
-    fetch(queryString)
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          rows: data.items,
-          totalCount: data.totalCount,
-          loading: false,
-        }),
-      )
-      .catch(() => this.setState({ loading: false }))
     this.lastQuery = queryString
+    try {
+      const { data, headers } = await axios.get(queryString)
+      if (this.state.totalCount === 0) {
+        this.setState({
+          rows: data,
+          totalCount: toInteger(headers['x-total-count']),
+          loading: false,
+        })
+      } else {
+        this.setState({
+          rows: data,
+          loading: false,
+        })
+      }
+    } catch (err) {
+      this.setState({ loading: false })
+    }
   }
   render() {
     const {
@@ -97,3 +103,5 @@ export default class Demo extends React.PureComponent {
     )
   }
 }
+
+export default SchoolsTable
