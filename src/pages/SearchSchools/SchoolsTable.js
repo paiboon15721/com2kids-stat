@@ -11,8 +11,9 @@ import axios from 'axios'
 import toInteger from 'lodash/toInteger'
 import map from 'lodash/map'
 import Loading from './Loading'
+import { baseUrl } from '../../helpers/config'
 
-const URL = 'http://localhost:5000/schools'
+const URL = `${baseUrl}/schools`
 
 class SchoolsTable extends React.PureComponent {
   state = {
