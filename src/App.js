@@ -13,11 +13,16 @@ import StatByDate from './pages/StatByDate'
 import SearchSchools from './pages/SearchSchools'
 import UiStore from './stores/UiStore'
 import StatStore from './stores/StatStore'
+import SchoolStore from './stores/SchoolStore'
 
 class App extends React.PureComponent {
   render() {
     return (
-      <Provider uiStore={UiStore} statStore={StatStore}>
+      <Provider
+        uiStore={UiStore}
+        statStore={StatStore}
+        schoolStore={SchoolStore}
+      >
         <Router>
           <Layout>
             <Switch>
