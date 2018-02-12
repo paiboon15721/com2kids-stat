@@ -11,18 +11,17 @@ class SelectProvince extends React.Component {
   }
 
   handleChange = selectedOption => {
-    this.props.schoolStore.selectProvince(selectedOption)
+    this.props.schoolStore.selectProvince(selectedOption.value)
   }
 
   render() {
-    const { selectedProvince, schoolProvinces } = this.props.schoolStore
-    const value = selectedProvince && selectedProvince.value
+    const { q, schoolProvinces } = this.props.schoolStore
     const options = map(schoolProvinces, v => ({ value: v, label: v }))
 
     return (
       <Select
         name="form-field-name"
-        value={value}
+        value={q.province}
         onChange={this.handleChange}
         options={options}
       />
