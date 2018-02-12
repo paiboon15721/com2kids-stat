@@ -1,6 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import SelectProvince from './SelectProvince'
+import SelectComLess from './SelectComLess'
 import SearchButton from './SearchButton'
 
 const styles = {
@@ -11,8 +12,11 @@ class FilterSchools extends React.PureComponent {
   render() {
     return (
       <Paper style={styles.root}>
-        <SelectProvince />
-        <SearchButton />
+        <form autoComplete="off">
+          <SelectProvince />
+          <SelectComLess />
+          <SearchButton />
+        </form>
       </Paper>
     )
   }
