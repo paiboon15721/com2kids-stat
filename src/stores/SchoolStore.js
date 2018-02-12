@@ -5,14 +5,18 @@ import toInteger from 'lodash/toInteger'
 import { baseUrl } from '../helpers/config'
 
 export default new class SchoolStore {
-  q = {}
   pageSize = 10
+  @observable
+  q = {
+    province: '',
+    limit: 10,
+    skip: 0,
+  }
   @observable loading = false
   @observable schools = []
   @observable totalCount = 0
   @observable currentPage = 0
   @observable schoolProvinces = []
-  @observable selectedProvince = ''
 
   @action
   async fetchSchoolProvinces() {
@@ -28,8 +32,7 @@ export default new class SchoolStore {
     if (count) {
       this.currentPage = 0
     }
-    this.q.limit = this.pageSize
-    this.q.skip = this.pageSize * this.currentPage
+    this.q.skip = this.q.limit * this.currentPage
     const qStr = queryString.stringify(this.q)
     const { data, headers } = await axios.get(
       `${baseUrl}/schools?count=${count}&${qStr}`,
@@ -46,7 +49,6 @@ export default new class SchoolStore {
 
   @action
   selectProvince(province) {
-    this.selectedProvince = province
-    this.q.province = province.value
+    this.q.province = province
   }
 }()
