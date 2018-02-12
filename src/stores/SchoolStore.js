@@ -31,7 +31,6 @@ export default new class SchoolStore {
     this.q.limit = this.pageSize
     this.q.skip = this.pageSize * this.currentPage
     const qStr = queryString.stringify(this.q)
-    console.log(`${baseUrl}/schools?count=${count}&${qStr}`)
     const { data, headers } = await axios.get(
       `${baseUrl}/schools?count=${count}&${qStr}`,
     )
