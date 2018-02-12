@@ -24,7 +24,7 @@ class NavBarChild extends React.Component {
       <div>
         <div className={classes.drawerHeader}>
           <Typography type="title" className={classes.title}>
-            v.1.0.0
+            v.1.0.1
           </Typography>
         </div>
         <Divider />
