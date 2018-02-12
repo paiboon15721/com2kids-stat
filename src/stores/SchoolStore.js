@@ -11,6 +11,7 @@ export default new class SchoolStore {
     province: '',
     limit: 10,
     skip: 0,
+    comLess: '',
   }
   @observable loading = false
   @observable schools = []
