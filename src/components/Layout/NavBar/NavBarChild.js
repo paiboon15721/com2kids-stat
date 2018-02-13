@@ -23,7 +23,7 @@ class NavBarChild extends React.Component {
     return (
       <div>
         <div className={classes.drawerHeader}>
-          <Typography type="title" className={classes.title}>
+          <Typography variant="title" className={classes.title}>
             v.1.0.1
           </Typography>
         </div>

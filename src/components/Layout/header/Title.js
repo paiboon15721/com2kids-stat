@@ -5,7 +5,7 @@ class Title extends React.Component {
   render() {
     return (
       <Typography
-        type="title"
+        variant="title"
         color="inherit"
         style={{ flexGrow: 1, marginLeft: 10 }}
         noWrap
