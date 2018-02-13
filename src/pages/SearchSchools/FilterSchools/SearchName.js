@@ -10,13 +10,14 @@ class SearchName extends React.Component {
   }
 
   render() {
+    const { schoolStore, className } = this.props
     return (
       <TextField
+        className={className}
         id="name"
         label="Name"
-        margin="normal"
         onChange={this.handleChange}
-        value={this.props.schoolStore.q.name}
+        value={schoolStore.q.name}
       />
     )
   }

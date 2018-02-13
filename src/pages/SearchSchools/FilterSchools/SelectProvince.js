@@ -15,16 +15,21 @@ class SelectProvince extends React.Component {
   }
 
   render() {
-    const { q, schoolProvinces } = this.props.schoolStore
+    const { className, schoolStore } = this.props
+    const { q, schoolProvinces } = schoolStore
     const options = map(schoolProvinces, v => ({ value: v, label: v }))
 
     return (
-      <Select
-        name="form-field-name"
-        value={q.province}
-        onChange={this.handleChange}
-        options={options}
-      />
+      <div>
+        <label>Select Province:</label>
+        <Select
+          className={className}
+          name="form-field-name"
+          value={q.province}
+          onChange={this.handleChange}
+          options={options}
+        />
+      </div>
     )
   }
 }

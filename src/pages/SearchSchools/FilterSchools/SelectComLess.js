@@ -1,19 +1,10 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
 import { inject, observer } from 'mobx-react'
 import Select from 'material-ui/Select'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 
-const styles = theme => ({
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-  },
-})
-
-@withStyles(styles)
 @inject('schoolStore')
 @observer
 class SelectComLess extends React.Component {
@@ -22,9 +13,9 @@ class SelectComLess extends React.Component {
   }
 
   render() {
-    const { classes, schoolStore } = this.props
+    const { schoolStore, className } = this.props
     return (
-      <FormControl className={classes.formControl}>
+      <FormControl className={className}>
         <InputLabel htmlFor="com-less">Com less than</InputLabel>
         <Select
           value={schoolStore.q.comLess}
