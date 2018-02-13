@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"gopkg.in/mgo.v2"
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -13,7 +15,13 @@ func SchoolIndex(w http.ResponseWriter, req *http.Request, _ httprouter.Params) 
 	qs := req.URL.Query()
 	ss, total, err := allSchools(qs)
 	if err != nil {
-		panic(err)
+		switch err {
+		case mgo.ErrNotFound:
+			http.Error(w, err.Error(), http.StatusNotFound)
+		default:
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("X-Total-Count", strconv.Itoa(total))
