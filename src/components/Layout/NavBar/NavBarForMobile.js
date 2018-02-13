@@ -19,7 +19,7 @@ class NavBarForMobile extends React.Component {
 
     return (
       <Drawer
-        type="temporary"
+        variant="temporary"
         open={showMobileNav}
         onClose={closeMobileNav}
         classes={{ paper: classes.drawerPaper }}
