@@ -18,7 +18,7 @@ class MenuButton extends React.Component {
     const { uiStore, classes } = this.props
     return (
       <IconButton
-        color="contrast"
+        color="inherit"
         onClick={uiStore.openMobileNav}
         className={classes.navIconHide}
       >
