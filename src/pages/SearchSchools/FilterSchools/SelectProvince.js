@@ -11,7 +11,7 @@ class SelectProvince extends React.Component {
   }
 
   handleChange = selectedOption => {
-    this.props.schoolStore.selectProvince(selectedOption.value)
+    this.props.schoolStore.q.province = selectedOption.value
   }
 
   render() {
