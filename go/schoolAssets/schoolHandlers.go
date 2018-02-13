@@ -17,7 +17,7 @@ func SchoolIndex(w http.ResponseWriter, req *http.Request, _ httprouter.Params) 
 	if err != nil {
 		switch err {
 		case mgo.ErrNotFound:
-			http.Error(w, err.Error(), http.StatusNotFound)
+			http.Error(w, err.Error(), http.StatusNoContent)
 		default:
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
