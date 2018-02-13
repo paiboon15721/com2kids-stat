@@ -14,7 +14,7 @@ class NavBarForWeb extends React.Component {
     const { classes } = this.props
 
     return (
-      <Drawer type="permanent" classes={{ paper: classes.drawerPaper }}>
+      <Drawer variant="permanent" classes={{ paper: classes.drawerPaper }}>
         <NavBarChild />
       </Drawer>
     )
