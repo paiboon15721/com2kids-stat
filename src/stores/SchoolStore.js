@@ -47,9 +47,4 @@ export default new class SchoolStore {
       this.loading = false
     })
   }
-
-  @action
-  selectProvince(province) {
-    this.q.province = province
-  }
 }()
