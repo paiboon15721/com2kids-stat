@@ -10,6 +10,9 @@ const styles = theme => ({
     justifyContent: 'space-between',
     flexFlow: 'row wrap',
     padding: 16,
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
   },
 })
 

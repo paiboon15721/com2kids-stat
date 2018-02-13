@@ -8,7 +8,12 @@ class SearchButton extends React.PureComponent {
 
   render() {
     return (
-      <Button variant="raised" color="primary" onClick={this.fetchSchools}>
+      <Button
+        variant="raised"
+        color="primary"
+        onClick={this.fetchSchools}
+        className={this.props.className}
+      >
         Search
       </Button>
     )
