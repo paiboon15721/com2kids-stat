@@ -21,7 +21,7 @@ class SearchSchools extends React.PureComponent {
   render() {
     const { classes } = this.props
     return (
-      <div style={{ boxSizing: 'border-box' }}>
+      <div>
         <FilterSchools className={classes.filterSchools} />
         <SchoolsTable />
       </div>
