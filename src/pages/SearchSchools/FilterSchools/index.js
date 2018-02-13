@@ -11,7 +11,7 @@ const styles = {
 class FilterSchools extends React.PureComponent {
   render() {
     return (
-      <Paper style={styles.root}>
+      <Paper style={styles.root} className={this.props.className}>
         <form autoComplete="off">
           <SelectProvince />
           <SelectComLess />
