@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 
 	"gopkg.in/mgo.v2"
 )
@@ -16,7 +17,11 @@ var School *mgo.Collection
 var Assets *mgo.Collection
 
 func init() {
-	s, err := mgo.Dial("mongodb://localhost")
+	mongoURL := os.Getenv("MONGO_URL")
+	if mongoURL == "" {
+		mongoURL = "mongodb://localhost"
+	}
+	s, err := mgo.Dial(mongoURL)
 	if err != nil {
 		panic(err)
 	}
