@@ -1,5 +1,6 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
+import { inject } from 'mobx-react'
 import { withStyles } from 'material-ui/styles'
 import SelectProvince from './SelectProvince'
 import SelectComLess from './SelectComLess'
@@ -48,16 +49,24 @@ const styles = theme => ({
 })
 
 @withStyles(styles)
+@inject('schoolStore')
 class FilterSchools extends React.PureComponent {
+  fetchSchools = e => {
+    e.preventDefault()
+    this.props.schoolStore.fetchSchools(1)
+  }
+
   render() {
     const { classes, className } = this.props
 
     return (
-      <Paper className={className}>
-        <SelectProvince className={classes.selectProvince} />
-        <SearchName className={classes.searchName} />
-        <SelectComLess className={classes.selectComLess} />
-        <SearchButton className={classes.searchButton} />
+      <Paper>
+        <form className={className} onSubmit={this.fetchSchools}>
+          <SelectProvince className={classes.selectProvince} />
+          <SearchName className={classes.searchName} />
+          <SelectComLess className={classes.selectComLess} />
+          <SearchButton className={classes.searchButton} />
+        </form>
       </Paper>
     )
   }
