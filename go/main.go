@@ -2,7 +2,9 @@ package main
 
 import (
 	"com2kids/go/schoolAssets"
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
@@ -18,5 +20,6 @@ func main() {
 	c := cors.New(cors.Options{
 		ExposedHeaders: []string{"X-Total-Count"},
 	})
-	http.ListenAndServe(":3001", c.Handler(router))
+	port := fmt.Sprintf("%s%s", ":", os.Getenv("PORT"))
+	http.ListenAndServe(port, c.Handler(router))
 }
