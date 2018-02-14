@@ -35,7 +35,7 @@ type total struct {
 
 var lookupAssets = bson.M{
 	"$lookup": bson.M{
-		"from":         "assets",
+		"from":         "school_comp_net_data",
 		"localField":   "SCHOOL_ID",
 		"foreignField": "SCHOOL_ID",
 		"as":           "assets",
