@@ -14,7 +14,6 @@ import {
   TableRowDetail,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
-import map from 'lodash/map'
 import Loading from './Loading'
 import RowDetail from './RowDetail'
 
@@ -45,16 +44,6 @@ class SchoolsTable extends React.Component {
       currentPage,
       pageSize,
     } = this.props.schoolStore
-    const rows = map(schools, v => ({
-      name: v.name,
-      province: v.province,
-      type: v.type,
-      size: v.size,
-      totalStudent: v.totalStudent,
-      totalTeacher: v.totalTeacher,
-      usable: v.assets.computerTotal.usable,
-    }))
-
     return (
       <Paper style={{ position: 'relative' }}>
         <Grid rows={toJS(schools)} columns={this.columns}>
