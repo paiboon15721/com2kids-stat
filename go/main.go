@@ -20,6 +20,10 @@ func main() {
 	c := cors.New(cors.Options{
 		ExposedHeaders: []string{"X-Total-Count"},
 	})
-	port := fmt.Sprintf("%s%s", ":", os.Getenv("PORT"))
+	portenv := os.Getenv("PORT")
+	if portenv == "" {
+		portenv = "3001"
+	}
+	port := fmt.Sprintf("%s%s", ":", portenv)
 	http.ListenAndServe(port, c.Handler(router))
 }
