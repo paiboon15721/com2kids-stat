@@ -44,9 +44,10 @@ class SchoolsTable extends React.Component {
       currentPage,
       pageSize,
     } = this.props.schoolStore
+    const rows = schools || []
     return (
       <Paper style={{ position: 'relative' }}>
-        <Grid rows={toJS(schools)} columns={this.columns}>
+        <Grid rows={toJS(rows)} columns={this.columns}>
           <PagingState
             currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
