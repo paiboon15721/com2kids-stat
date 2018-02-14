@@ -19,7 +19,7 @@ var Assets *mgo.Collection
 func init() {
 	mongoURL := os.Getenv("MONGO_URL")
 	if mongoURL == "" {
-		mongoURL = "mongodb://localhost"
+		mongoURL = "mongodb://localhost/com2kids"
 	}
 	s, err := mgo.Dial(mongoURL)
 	if err != nil {
@@ -56,7 +56,7 @@ func init() {
 		panic(err)
 	}
 	fmt.Println("ensured schools.ภาษาอังกฤษ index")
-	Assets = DB.C("assets")
+	Assets = DB.C("school_comp_net_data")
 	err = Assets.EnsureIndex(
 		mgo.Index{
 			Key:    []string{"SCHOOL_ID"},
@@ -66,11 +66,11 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("ensured assets.SCHOOL_ID index")
+	fmt.Println("ensured school_comp_net_data.SCHOOL_ID index")
 	err = Assets.EnsureIndexKey("COMP_TOTAL.ใช้งานได้")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("ensured assets.COMP_TOTAL.ใช้งานได้ index")
+	fmt.Println("ensured school_comp_net_data.COMP_TOTAL.ใช้งานได้ index")
 	fmt.Println("everything ready to go :)")
 }
