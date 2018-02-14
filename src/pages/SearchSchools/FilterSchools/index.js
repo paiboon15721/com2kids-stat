@@ -56,11 +56,17 @@ class FilterSchools extends React.PureComponent {
     this.props.schoolStore.fetchSchools(1)
   }
 
+  onEnter = e => {
+    if (e.keyCode === 13) {
+      this.props.schoolStore.fetchSchools(1)
+    }
+  }
+
   render() {
     const { classes, className } = this.props
 
     return (
-      <Paper>
+      <Paper onKeyUp={this.onEnter}>
         <form className={className} onSubmit={this.fetchSchools}>
           <SelectProvince className={classes.selectProvince} />
           <SearchName className={classes.searchName} />
