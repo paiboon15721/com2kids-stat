@@ -3,15 +3,11 @@ package config
 import (
 	"fmt"
 
-	bolt "github.com/coreos/bbolt"
 	"gopkg.in/mgo.v2"
 )
 
 // DB : com2kids database
 var DB *mgo.Database
-
-// Bolt : cache database
-var Bolt *bolt.DB
 
 // School : schools collection
 var School *mgo.Collection
@@ -21,10 +17,6 @@ var Assets *mgo.Collection
 
 func init() {
 	s, err := mgo.Dial("mongodb://localhost")
-	if err != nil {
-		panic(err)
-	}
-	Bolt, err = bolt.Open("my.db", 0600, nil)
 	if err != nil {
 		panic(err)
 	}
