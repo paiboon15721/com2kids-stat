@@ -43,7 +43,7 @@ type assets struct {
 }
 
 type assetsWithSchool struct {
-	assets `bson:",inline"`
+	assets `bson:"school_comp_net_data,inline"`
 	School []school `json:"school"`
 }
 
