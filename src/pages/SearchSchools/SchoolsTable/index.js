@@ -1,15 +1,22 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import { inject, observer } from 'mobx-react'
-import { PagingState, CustomPaging } from '@devexpress/dx-react-grid'
+import { toJS } from 'mobx'
+import {
+  PagingState,
+  CustomPaging,
+  RowDetailState,
+} from '@devexpress/dx-react-grid'
 import {
   Grid,
   Table,
   TableHeaderRow,
+  TableRowDetail,
   PagingPanel,
 } from '@devexpress/dx-react-grid-material-ui'
 import map from 'lodash/map'
 import Loading from './Loading'
+import RowDetail from './RowDetail'
 
 @inject('schoolStore')
 @observer
@@ -19,9 +26,9 @@ class SchoolsTable extends React.Component {
     { name: 'province', title: 'Province' },
     { name: 'type', title: 'Type' },
     { name: 'size', title: 'Size' },
-    { name: 'totalStudent', title: 'Total Student' },
-    { name: 'totalTeacher', title: 'Total Teacher' },
-    { name: 'usable', title: 'Usable' },
+    { name: 'totalStudent', title: 'Student' },
+    { name: 'totalTeacher', title: 'Teacher' },
+    { name: 'totalClassroom', title: 'Classroom' },
   ]
 
   changeCurrentPage = currentPage => {
@@ -50,15 +57,17 @@ class SchoolsTable extends React.Component {
 
     return (
       <Paper style={{ position: 'relative' }}>
-        <Grid rows={rows} columns={this.columns}>
+        <Grid rows={toJS(schools)} columns={this.columns}>
           <PagingState
             currentPage={currentPage}
             onCurrentPageChange={this.changeCurrentPage}
             pageSize={pageSize}
           />
           <CustomPaging totalCount={totalCount} />
+          <RowDetailState />
           <Table />
           <TableHeaderRow />
+          <TableRowDetail contentComponent={RowDetail} />
           <PagingPanel />
         </Grid>
         {loading && <Loading />}
